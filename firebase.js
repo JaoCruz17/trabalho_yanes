@@ -4,12 +4,12 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth
 import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "SUA_CHAVE",
-  authDomain: "SEU_DOMINIO.firebaseapp.com",
-  projectId: "SEU_PROJETO_ID",
-  storageBucket: "SEU_BUCKET.appspot.com",
-  messagingSenderId: "SEU_SENDER_ID",
-  appId: "SEU_APP_ID"
+  apiKey: "AIzaSyC52CJ2xADE3zLv2nrqxeqylc_FpUpKRRU",
+  authDomain: "projeto-yanes.firebaseapp.com",
+  projectId: "projeto-yanes",
+  storageBucket: "projeto-yanes.firebasestorage.app",
+  messagingSenderId: "932788447921",
+  appId: "1:932788447921:web:d33003fa5415e9cfbf5090"
 };
 
 const app = initializeApp(firebaseConfig);
