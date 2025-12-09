@@ -1,11 +1,24 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="/firebase.js"></script>
   <title>Novo Produto</title>
+
+  <style>
+    /* Impede números nos inputs só para texto */
+    .somente-texto {
+      ime-mode: disabled;
+    }
+
+    /* Impede letras no SKU */
+    .somente-numeros {
+      ime-mode: disabled;
+    }
+  </style>
 </head>
+
 <body class="bg-gray-50 min-h-screen flex">
 
   <!-- Sidebar -->
@@ -24,9 +37,35 @@
     <h1 class="text-2xl font-semibold mb-6">Cadastrar Novo Produto</h1>
 
     <form id="produtoForm" class="bg-white p-6 rounded-xl shadow max-w-lg space-y-4">
-      <input id="nome" type="text" placeholder="Nome do Produto" class="w-full border p-2 rounded" required>
-      <input id="sku" type="text" placeholder="SKU" class="w-full border p-2 rounded" required>
-      <input id="categoria" type="text" placeholder="Categoria" class="w-full border p-2 rounded" required>
+
+      <!-- Somente palavras -->
+      <input id="nome" 
+             type="text"
+             class="w-full border p-2 rounded somente-texto"
+             placeholder="Nome do Produto"
+             pattern="[A-Za-zÀ-ÿ\s]+"
+             title="Use apenas letras"
+             required>
+
+      <!-- Somente números (SKU) -->
+      <input id="sku"
+             type="text"
+             class="w-full border p-2 rounded somente-numeros"
+             placeholder="SKU (somente números)"
+             pattern="[0-9]+"
+             title="Use apenas números"
+             required>
+
+      <!-- Somente palavras -->
+      <input id="categoria"
+             type="text"
+             class="w-full border p-2 rounded somente-texto"
+             placeholder="Categoria (somente letras)"
+             pattern="[A-Za-zÀ-ÿ\s]+"
+             title="Use apenas letras"
+             required>
+
+      <!-- Numéricos normais -->
       <input id="preco" type="number" step="0.01" placeholder="Preço" class="w-full border p-2 rounded" required>
       <input id="estoque" type="number" placeholder="Quantidade em estoque" class="w-full border p-2 rounded" required>
 
@@ -57,6 +96,20 @@
 
     onAuthStateChanged(auth, (user) => {
       if (!user) window.location = "index.html";
+    });
+
+    /* Bloqueia números nos campos de texto */
+    document.querySelectorAll(".somente-texto").forEach((input) => {
+      input.addEventListener("keypress", (e) => {
+        if (!/[A-Za-zÀ-ÿ\s]/.test(e.key)) e.preventDefault();
+      });
+    });
+
+    /* Bloqueia letras no SKU */
+    document.querySelectorAll(".somente-numeros").forEach((input) => {
+      input.addEventListener("keypress", (e) => {
+        if (!/[0-9]/.test(e.key)) e.preventDefault();
+      });
     });
 
     form.addEventListener("submit", async (e) => {
